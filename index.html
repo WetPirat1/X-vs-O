@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Don't use this in production: -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+
+    const SYMBOL_X = 'X';
+    const SYMBOL_O = 'O';
+
+    function App() {
+      const cells = [SYMBOL_O, null, null, SYMBOL_O, SYMBOL_X, null, null, null, null];
+      const currentStep = SYMBOL_O;
+
+      const getSymbolClassName = (symbol) => {
+        if(symbol === SYMBOL_O) return 'symbol--o';
+        if(symbol === SYMBOL_X) return 'symbol--x';
+        return '';
+      } 
+
+      const renderSymbol = (symbol) => <span className={`symbol ${getSymbolClassName(symbol)}`}>{symbol}</span>
+
+      return (
+        <div className="game">
+          <div className="game-info">
+            Ход: {renderSymbol(currentStep)}
+          </div>
+          <div className="game-field">
+            {cells.map((symbol, index) => {
+              return <button key={index} className="cell">{symbol ? renderSymbol(symbol) : null}</button>
+            })}
+          </div>
+        </div>
+      )
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+
+  </script>
+  <style>
+    html {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .game {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 150px;
+      margin: 100px auto;
+      padding: 20px;
+      border: 1px solid black;
+    }
+
+    .game-info {
+      margin-bottom: 10px;
+    }
+
+    .game-field {
+      display: grid;
+      grid-template-columns: repeat(3, 30px);
+      grid-template-rows: repeat(3, 30px);
+      padding: 1px 0 0 1px;
+    }
+
+    .cell {
+      border: 1px solid grey;
+      margin: -1px 0 0 -1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+    }
+
+    .cell--win {
+      background: rgba(255, 0, 0, 0.1);
+    }
+
+    .symbol {
+      font-size: 20px;
+      line-height: 24px;
+    }
+
+    .symbol--x {
+      color: red;
+    }
+
+    .symbol--o {
+      color: green;
+    }
+  </style>
+</body>
+
+</html>
