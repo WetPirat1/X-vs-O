@@ -74,6 +74,7 @@
 
       }
 
+
       const resetGame = () => {
         const resetCells = [null, null, null, null, null, null, null, null, null];
         setCells(resetCells); 
@@ -82,6 +83,8 @@
       } ;
 
       const winnerSymbol = winnerSequence ? cells[winnerSequence[0]] : undefined
+      const isDraw = !winnerSequence && cells.filter(value => value).length === 9;
+
 
       console.log(cells);
 
@@ -89,7 +92,8 @@
       return (
         <div className="game">
           <div className="game-info">
-            {winnerSequence ? 'Победитель: ' : 'Ход: '} {renderSymbol(winnerSymbol ?? currentStep)}
+            {isDraw ? "Ничья" : winnerSequence ? 'Победитель: ' : 'Ход: '} 
+            {!isDraw && renderSymbol(winnerSymbol ?? currentStep)}
           </div>
           <div className="game-field">
             {cells.map((symbol, index) => {
@@ -114,6 +118,7 @@
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
 
+    
   </script>
   <style>
     html {
