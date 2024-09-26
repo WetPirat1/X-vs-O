@@ -47,7 +47,7 @@
 
     function App() {
       const [cells, setCells] = React.useState([null, null, null, null, null, null, null, null, null]);
-      const [currentStep, setCurrentStep] = React.useState(SYMBOL_O);
+      const [currentStep, setCurrentStep] = React.useState(SYMBOL_X);
       const [winnerSequence, setWinnerSequence] = React.useState();
 
       const getSymbolClassName = (symbol) => {
@@ -70,9 +70,15 @@
         setCells(cellsCopy);
         setCurrentStep(currentStep === SYMBOL_O ? SYMBOL_X : SYMBOL_O);
         setWinnerSequence(winner)
+
       }
 
+
+
       const winnerSymbol = winnerSequence ? cells[winnerSequence[0]] : undefined
+
+      console.log(cells);
+
 
       return (
         <div className="game">
@@ -92,7 +98,9 @@
                 </button>
               )
             })}
-          </div>
+            </div>
+            
+
         </div>
       )
     }
