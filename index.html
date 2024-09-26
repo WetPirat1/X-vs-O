@@ -50,6 +50,7 @@
       const [currentStep, setCurrentStep] = React.useState(SYMBOL_X);
       const [winnerSequence, setWinnerSequence] = React.useState();
 
+
       const getSymbolClassName = (symbol) => {
         if (symbol === SYMBOL_O) return 'symbol--o';
         if (symbol === SYMBOL_X) return 'symbol--x';
@@ -73,7 +74,12 @@
 
       }
 
-
+      const resetGame = () => {
+        const resetCells = [null, null, null, null, null, null, null, null, null];
+        setCells(resetCells); 
+        setCurrentStep(SYMBOL_X);
+        setWinnerSequence(undefined);
+      } ;
 
       const winnerSymbol = winnerSequence ? cells[winnerSequence[0]] : undefined
 
@@ -98,9 +104,9 @@
                 </button>
               )
             })}
-            </div>
-            
+          </div>
 
+          <button onClick={() => resetGame()}>Сбросить</button>
         </div>
       )
     }
